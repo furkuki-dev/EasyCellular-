@@ -1,3 +1,4 @@
+
 name: Build IPA and APK
 
 on:
@@ -72,10 +73,10 @@ jobs:
           distribution: temurin
           java-version: '17'
 
-      - name: Install Android SDK platform 37 (Android 17)
+      - name: Install Android SDK platform 36 (Android 16)
         run: |
           yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses > /dev/null || true
-          "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "platforms;android-37"
+          "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "platforms;android-36"
 
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
