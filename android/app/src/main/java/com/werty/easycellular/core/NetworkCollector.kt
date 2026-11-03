@@ -228,8 +228,9 @@ class NetworkCollector(private val context: Context) {
             )
         }
         is CellInfoNr -> {
-            val id = c.cellIdentity
-            val ss = c.cellSignalStrength
+            // Read NR-only fields through their concrete Android telephony types.
+            val id = c.cellIdentity as? android.telephony.CellIdentityNr ?: return null
+            val ss = c.cellSignalStrength as? android.telephony.CellSignalStrengthNr ?: return null
             CellItem(
                 tech = "NR",
                 registered = c.isRegistered,
