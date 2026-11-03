@@ -20,7 +20,13 @@ import kotlin.math.ln
 fun SpeedGauge(value: Double, modifier: Modifier = Modifier) {
     val target = if (value <= 0) 0f
     else (ln(1 + value) / ln(1 + SpeedConfig.GAUGE_MAX)).toFloat().coerceIn(0f, 1f)
-    val fraction by animateFloatAsState(targetValue = target, animationSpec = tween(350), label = "gauge")
+    val fractionState = animateFloatAsState(
+        targetValue = target,
+        animationSpec = tween(350),
+        label = "gauge"
+    )
+    // Read State.value directly to avoid delegated-property resolution issues.
+    val fraction = fractionState.value
 
     Canvas(modifier) {
         val stroke = 18.dp.toPx()

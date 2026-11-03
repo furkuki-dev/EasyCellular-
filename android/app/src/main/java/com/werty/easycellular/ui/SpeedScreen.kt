@@ -24,7 +24,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
@@ -44,12 +43,13 @@ fun SpeedScreen(state: SpeedUi, onStart: () -> Unit, onStop: () -> Unit) {
     val running = state.phase == TestPhase.PING || state.phase == TestPhase.DOWN || state.phase == TestPhase.UP
 
     val transition = rememberInfiniteTransition(label = "pulse")
-    val pulse by transition.animateFloat(
+    val pulseState = transition.animateFloat(
         initialValue = 0.94f,
         targetValue = 1.06f,
         animationSpec = infiniteRepeatable(tween(1200), RepeatMode.Reverse),
         label = "pulse"
     )
+    val pulse = pulseState.value
 
     val phaseText = when (state.phase) {
         TestPhase.IDLE -> t.t("phase_idle")
